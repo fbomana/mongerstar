@@ -8,6 +8,6 @@ create table singers (
       author varchar2(512) not null,
       language varchar2(20) not null
   );
-  create index name_index on songs(name);
+  create index title_index on songs(title);
   create index author_index on songs(author);
   create index language_index on songs(language);
