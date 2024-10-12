@@ -30,7 +30,9 @@ public class SingerController {
     }
 
     @PostMapping("")
-    public void addSinger(@RequestBody Singer singer ) {
-        storage.addSinger( singer );
+    public void addSinger(@RequestBody String singer ) {
+        if ( storage.getSinger( singer ) == null ) {
+            storage.addSinger(new Singer(singer, Integer.MAX_VALUE));
+        }
     }
 }
