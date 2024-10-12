@@ -1,9 +1,6 @@
 package com.monger.ultrastar.singer;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
@@ -40,6 +37,11 @@ public class SingerStorage {
 	        singers.remove( singer.orElseThrow(
 	                () -> new SingerNotFoundException( String.format("Cantante %s no enconrado", name ))));
     	}
+    }
+
+    public void addSinger( String singer ) {
+        OptionalInt maxScore = singers.stream().mapToInt( Singer::score ).max();
+        singers.add( new Singer( singer, maxScore.orElse( Integer.MAX_VALUE ) -1 ));
     }
 
     public List<Singer> findAll() {
