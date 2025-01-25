@@ -3,9 +3,12 @@ package com.monger.ultrastar.queue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.monger.ultrastar.singer.Singer;
 import com.monger.ultrastar.song.Song;
 
+@Service
 public class UltrastarQueue {
 
 	private List<Turn> turns;
@@ -80,5 +83,9 @@ public class UltrastarQueue {
 		if ( pointer == turns.size() ) {
 			throw new NoUnsingedSongsException();
 		}
+	}
+	
+	public List<Turn> getTurns() {
+		return turns;
 	}
 }

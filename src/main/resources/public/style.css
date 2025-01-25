@@ -1,0 +1,29 @@
+.completa {
+	background-color: lightgray;
+}
+
+.pendiente {
+	
+}
+
+#nav {
+	display:block flow
+}
+
+#queue {
+	display:block
+}
+
+.nav-selected {
+	color:#FF0000;
+	display: inline;
+	padding: 1em;
+	border: solid red; 
+}
+
+.nav-normal {
+	color:#000000;
+	display:inline;
+	padding: 1em;
+	border solid gray;
+}

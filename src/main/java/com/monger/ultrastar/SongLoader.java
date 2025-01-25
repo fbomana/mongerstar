@@ -10,12 +10,12 @@ import com.monger.ultrastar.song.SongDiscoverConfigurations;
 import com.monger.ultrastar.song.SongDiscoverer;
 
 @Component
-public class UltraStarApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
-	private static final Logger logger = LoggerFactory.getLogger( UltraStarApplicationListener.class );
+public class SongLoader implements ApplicationListener<ContextRefreshedEvent> {
+	private static final Logger logger = LoggerFactory.getLogger( SongLoader.class );
 	private final SongDiscoverer discoverer;
 	private final SongDiscoverConfigurations configuration;
 	
-	public UltraStarApplicationListener( SongDiscoverer discoverer, SongDiscoverConfigurations configuration ) {
+	public SongLoader( SongDiscoverer discoverer, SongDiscoverConfigurations configuration ) {
 		this.discoverer = discoverer;
 		this.configuration = configuration;
 	}

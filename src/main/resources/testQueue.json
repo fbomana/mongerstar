@@ -1,0 +1,44 @@
+{
+	"turns": [
+		{
+			"singer1":{"name":"Primiño"},
+			"singer2":{"name":"Ines"},
+			"song": {
+				"title":"Moonlight Shadow",
+				"author":"Mike Oldfield",
+				"language": "inglés"
+				},
+			"completed":true
+		},
+		{
+			"singer1":{"name":"Berni"},
+			"singer2":{"name":"Ester"},
+			"song":{
+				"title":"Como una Ola",
+				"author":"Rocio Jurado",
+				"language": "español"
+			},
+			"completed":false
+		},
+		{
+			"singer1":{"name":"Efi"},
+			"singer2":{"name":"Raquel"},
+			"song": {
+				"title":"Naturaleza Muerta",
+				"author": "Mecano",
+				"language": "español"
+			},
+			"completed":false			
+		},
+		{
+			"singer1":{"name":"Ester"},
+			"singer2":{"name":"Al"},
+			"song": {
+				"title":"Los coches del pasado",
+				"author":"Ladilla Rusa",
+				"language": "español"
+			},
+			"completed":false			
+		}	
+	]
+}
