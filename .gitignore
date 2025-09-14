@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### node
+frontend/node_modules
+frontend/.angular
+frontend/dist
+dist
+.editorconfig
+src/main/resources/public/

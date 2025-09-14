@@ -1,0 +1,13 @@
+td {
+    border-radius: 8%;
+    border-color: gray;
+    border-style: solid;
+    color: gray;
+    padding: 0.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: #404040;
+}
+

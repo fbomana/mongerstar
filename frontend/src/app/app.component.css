@@ -1,0 +1,44 @@
+header {
+  position: sticky;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: green;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+    margin: 0;
+    padding: 10px;
+}
+
+nav {
+  position: static;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+main {
+  position: static;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: left;
+
+}
+
+footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
