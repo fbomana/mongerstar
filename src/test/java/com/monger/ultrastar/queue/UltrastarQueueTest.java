@@ -41,8 +41,11 @@ public class UltrastarQueueTest {
 		queue.add( singer1, singer2, song2 );
 		Turn turn = queue.nextTurn();
 		assertNotNull( turn );
-		assertEquals( song2, turn.song());
+		assertEquals( song, turn.song());
 		assertFalse( turn.completed() );
+		turn = queue.nextTurn();
+		assertNotNull( turn );
+		assertEquals( song2, turn.song());
 	}
 	
 	@Test
@@ -51,6 +54,7 @@ public class UltrastarQueueTest {
 		queue.add( singer1, singer2, song );
 		queue.add( singer1, singer2, song2 );
 		try {
+			queue.nextTurn();
 			queue.nextTurn();
 			queue.nextTurn();
 			fail("NoUnsingedSongsException expected");

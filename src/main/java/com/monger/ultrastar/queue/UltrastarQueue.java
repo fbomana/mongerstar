@@ -23,14 +23,23 @@ public class UltrastarQueue {
 	public void add( Singer singer1, Singer singer2, Song song ) {
 		addSong( new Turn( singer1, singer2, song, false ));
 	}
+
 	public void addSong( Turn turn ) {
 		int position = Collections.binarySearch( unsinged, turn );
-		unsinged.add( -position -1, turn );
+		if ( position < 0 ) {
+			unsinged.add(-position - 1, turn);
+		}
+		else {
+			unsinged.add( position + 1, turn );
+		}
 	}
 
 	public Turn nextTurn() {
-		Turn turn = unsinged.remove( 0 );
-		singed.add( turn );
+		if (unsinged.isEmpty()) {
+			throw new NoUnsingedSongsException();
+		}
+		Turn turn = unsinged.remove(0);
+		singed.add(turn.complete());
 		return turn;
 	}
 
@@ -51,6 +60,6 @@ public class UltrastarQueue {
 	}
 	
 	public List<Turn> getTurns() {
-		return turns;
+		return unsinged;
 	}
 }

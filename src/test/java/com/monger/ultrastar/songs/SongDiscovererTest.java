@@ -16,7 +16,7 @@ public class SongDiscovererTest {
 	public void discoverStorageSearchEveryFolderForTxtFiles() {
 		SongStorage storage = new TestSongStorage();
 		SongDiscoverer discoverer = new SongDiscoverer( storage );
-		discoverer.discoverSongsOnFolder("/home/aitkiar/Documentos/trabajo/ultrastar/canciones/");
+		discoverer.discoverSongsOnFolder("D:/trabajo/ultrastart-queue/canciones");
 		assertFalse( storage.getAllSongs().isEmpty() );
 		assertEquals( 7, storage.getAllSongs().size() );
 	}
