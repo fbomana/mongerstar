@@ -41,4 +41,29 @@ public class SingerStoageTest {
             assertEquals( "Cantante monger no enconrado", e.getMessage());
         }
     }
+    
+    @Test
+    public void removeSingerThrowsAnExcetionIfTheSinerDoesNotExists() {
+        try {
+            SingerStorage storage = new SingerStorage();
+            storage.removeSinger( "monger" );
+            fail("SingerNotFoundException expected");
+        } catch ( SingerNotFoundException e ) {
+            assertEquals( "Cantante monger no enconrado", e.getMessage());
+        }
+    }
+    
+    @Test
+    public void removeSingerRemoveTheSingerFromStorage() {
+        SingerStorage storage = new SingerStorage();
+        Singer singer1 = new Singer("monger1");
+        Singer singer2 = new Singer("monger2");
+        storage.addSinger( singer1 );
+        storage.addSinger( singer2 );
+        storage.removeSinger( "monger1" );
+        List<Singer> singers = storage.findAll();
+        assertFalse( singers.isEmpty() );
+        assertEquals( 1, singers.size());
+        assertEquals( "monger2", singers.get(0).name());
+    }
 }

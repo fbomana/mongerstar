@@ -1,1 +1,24 @@
-<p>singers-view works!</p>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Mongers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td>
+                <form [formGroup]="newSingerForm">
+                <input type="text" formControlName="newSinger"><input type="button" value="add singer" (click)="addSinger()" [disabled]="!newSingerForm.value.newSinger"/>
+                </form>
+            </td>
+        </tr>
+    @for ( singer of singers(); track singer.name ) {
+        <tr>
+            <td><button (click)="removeSinger( $event )" value="{{ singer.name }}">X</button></td>
+            <td>{{ singer.name }}</td>
+        </tr>
+    }
+    </tbody>
+</table>
