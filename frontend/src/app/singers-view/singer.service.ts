@@ -7,7 +7,7 @@ import { Singer } from './singer'
 })
 export class SingerService {
 
-  url = "/singer";
+  url = "http://localhost:8080/singer";
 
   constructor() { }
 
