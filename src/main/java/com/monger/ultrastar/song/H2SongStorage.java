@@ -17,7 +17,7 @@ public class H2SongStorage implements SongStorage {
 
     @Override
     public List<Song> getAllSongs() {
-        return jdbcClient.sql("select * from songs ordery by author, title").query( Song.class ).list();
+        return jdbcClient.sql("select * from songs order by author, title").query( Song.class ).list();
     }
 
     @Override

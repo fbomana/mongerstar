@@ -1,1 +1,8 @@
-<p>songs-view works!</p>
+<h2>Songs Library</h2>
+@for (song of songs(); track song.title ) {
+	<div>
+		<b>{{song.author}}</b><br>
+		{{song.title}}<br>
+		<i>{{song.language}}</i><br>
+	</div>
+}

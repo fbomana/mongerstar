@@ -25,7 +25,7 @@ public class SongController {
 	
 	@GetMapping("/author/{value}")
     public List<Song> findSongsByAuthor( @PathParam("value") String title) {
-        return storage.findSongsByTitle( title );
+        return storage.findSongsByAuthor( title );
     }
 	
 	@GetMapping("/")
