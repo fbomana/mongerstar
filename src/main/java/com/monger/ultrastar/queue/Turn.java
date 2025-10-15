@@ -10,14 +10,14 @@ public record Turn ( Singer singer1, Singer singer2, Song song, boolean complete
 	}
 	
 	public boolean singersCoincide( Turn otherTurn ) {
-		return otherTurn.singer1.name().equalsIgnoreCase( singer1.name() ) ||
-			otherTurn.singer1.name().equalsIgnoreCase( singer2.name() ) ||
-			otherTurn.singer2.name().equalsIgnoreCase( singer1.name() ) ||
-			otherTurn.singer2.name().equalsIgnoreCase( singer2.name() );
+		return otherTurn.singer1.getName().equalsIgnoreCase( singer1.getName() ) ||
+			otherTurn.singer1.getName().equalsIgnoreCase( singer2.getName() ) ||
+			otherTurn.singer2.getName().equalsIgnoreCase( singer1.getName() ) ||
+			otherTurn.singer2.getName().equalsIgnoreCase( singer2.getName() );
 	}
 
 	public Long calculateScore() {
-		return ((long)singer1.score()) + singer2.score();
+		return ((long)singer1.getScore()) + singer2.getScore();
 	}
 
 	@Override

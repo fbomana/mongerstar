@@ -2,22 +2,28 @@ package com.monger.ultrastar.queue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monger.ultrastar.singer.Singer;
+import com.monger.ultrastar.singer.SingerStorage;
 import com.monger.ultrastar.song.Song;
 
 @Service
 public class UltrastarQueue {
 
-	private List<Turn> singed;
-	private List<Turn> unsinged;
+	private List<Turn> previousTurns;
+	private List<Turn> queue;
+	private final SingerStorage singerStorage;
 
-	public UltrastarQueue( ) {
-		this.singed = new ArrayList<>();
-		this.unsinged = new ArrayList<>();
+	@Autowired
+	public UltrastarQueue( SingerStorage singerStorage) {
+		this.previousTurns = new ArrayList<>();
+		this.queue = new ArrayList<>();
+		this.singerStorage = singerStorage;
 	}
 
 	public void add( Singer singer1, Singer singer2, Song song ) {
@@ -25,41 +31,48 @@ public class UltrastarQueue {
 	}
 
 	public void addSong( Turn turn ) {
-		int position = Collections.binarySearch( unsinged, turn );
+		int position = Collections.binarySearch( queue, turn );
 		if ( position < 0 ) {
-			unsinged.add(-position - 1, turn);
+			queue.add(-position - 1, turn);
 		}
 		else {
-			unsinged.add( position + 1, turn );
+			while( position < queue.size() && queue.get(position).calculateScore() == turn.calculateScore()) {
+				position++;
+			}
+			queue.add( position, turn );
 		}
 	}
 
 	public Turn nextTurn() {
-		if (unsinged.isEmpty()) {
-			throw new NoUnsingedSongsException();
+		if (queue.isEmpty()) {
+			throw new NoSongsInQueueException();
 		}
-		Turn turn = unsinged.remove(0);
-		singed.add(turn.complete());
+		Turn turn = queue.remove(0);
+		previousTurns.add(turn.complete());
+		turn.singer1().resetScore();
+		turn.singer2().resetScore();
+		singerStorage.increaseSingersScore();
+		Collections.sort( queue );
 		return turn;
 	}
 
-	public Turn delayTurn() {
-		Turn delayed = unsinged.remove( 0 );
-		Turn actual = unsinged.remove( 0 );
-		singed.add( actual );
-		addSong( delayed );
-		return actual;
+	public void delayTurn() {
+		Turn delayed = queue.remove( 0 );
+		queue.add( 1, delayed );
 	}
 
 	public void removeSinger( Singer singer ) {
-		unsinged = unsinged.stream().filter( t -> !t.singer1().equals( singer ) && !t.singer2().equals( singer )).toList();
+		if ( queue.isEmpty()) {
+			throw new NoSongsInQueueException();
+		}
+		queue = queue.stream().filter( t -> !t.singer1().equals( singer ) && !t.singer2().equals( singer )).toList();
 	}
 
 	public int size() {
-		return unsinged.size();
+		return queue.size();
 	}
 	
 	public List<Turn> getTurns() {
-		return unsinged;
+		return queue;
 	}
 }

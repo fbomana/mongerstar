@@ -10,7 +10,7 @@ public class SingerTest {
         SingerStorage storage = new SingerStorage();
         storage.addSinger("a");
         Singer singer = storage.getSinger( "a" );
-        assertEquals( Integer.MAX_VALUE -1 , singer.score());
+        assertEquals( Integer.MAX_VALUE -1 , singer.getScore());
     }
 
     @Test public void addSingerByNameOnAListWithUsersGiveThemTheGreatestScoreOfAllUsersMinusOne(){
@@ -19,6 +19,6 @@ public class SingerTest {
         storage.addSinger(new Singer( "b", 3 ));
         storage.addSinger( "c" );
         Singer singer = storage.getSinger( "c" );
-        assertEquals( 4 , singer.score());
+        assertEquals( 4 , singer.getScore());
     }
 }
