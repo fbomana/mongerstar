@@ -1,9 +1,6 @@
 package com.monger.ultrastar.singer;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
@@ -25,7 +22,7 @@ public class SingerStorage {
     public Singer getSinger( String name ) {
     	synchronized (singers) {
             Optional<Singer> singer =  singers.stream()
-                    .filter( a -> a.name().equalsIgnoreCase( name ))
+                    .filter( a -> a.getName().equalsIgnoreCase( name ))
                     .findFirst();
             return singer.orElseThrow(
                     () -> new SingerNotFoundException( String.format("Cantante %s no enconrado", name )));		
@@ -35,16 +32,27 @@ public class SingerStorage {
     public void removeSinger( String name ) {
     	synchronized (singers) {
 	        Optional<Singer> singer =  singers.stream()
-	                .filter( a -> a.name().equalsIgnoreCase( name ))
+	                .filter( a -> a.getName().equalsIgnoreCase( name ))
 	                .findFirst();
 	        singers.remove( singer.orElseThrow(
 	                () -> new SingerNotFoundException( String.format("Cantante %s no enconrado", name ))));
     	}
     }
 
+    public void addSinger( String singer ) {
+        OptionalInt maxScore = singers.stream().mapToInt( Singer::getScore ).max();
+        singers.add( new Singer( singer, maxScore.orElse( Integer.MAX_VALUE ) -1 ));
+    }
+
     public List<Singer> findAll() {
     	synchronized (singers) {
     		return singers.stream().toList();
+    	}
+    }
+    
+    public void increaseSingersScore() {
+    	for ( Singer singer : singers ) {
+    		singer.increaseScore();
     	}
     }
 }

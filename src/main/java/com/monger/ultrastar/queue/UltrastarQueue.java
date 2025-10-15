@@ -1,91 +1,78 @@
 package com.monger.ultrastar.queue;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monger.ultrastar.singer.Singer;
+import com.monger.ultrastar.singer.SingerStorage;
 import com.monger.ultrastar.song.Song;
 
 @Service
 public class UltrastarQueue {
 
-	private List<Turn> turns;
-	private int pointer;
-	
-	public UltrastarQueue( ) {
-		this.turns = new ArrayList<>( 200 );
-		this.pointer = 0;
-	}
-	
-	public int size() {
-		return  turns.size();
-	}
-	
-	public Turn nextTurn() {
-		turns.set(pointer, turns.get( pointer ).complete());
-		do {
-			pointer ++;
-		} while( pointer < size() && turns.get(pointer).completed() );
-		
-		if ( pointer == turns.size() ) {
-			throw new NoUnsingedSongsException();
-		}
-		return turns.get( pointer );
-	}
-	
-	public Turn delayTurn() {
-		Turn turn = turns.get( pointer );
-		turns.remove( pointer );
-		
-		for ( int i = pointer + 1; i < turns.size(); i ++ ) {
-			if ( canGoThere( turn, i )) {
-				turns.set( i, turn );
-				return turns.get( pointer );
-			}
-		}
-		turns.add( turn );
-		return turns.get(pointer);
-	}
-	
-	public boolean canGoThere( Turn turn, int i ) {
-		boolean canGoThere = true;
-		if ( i < turns.size() -1  ) {
-			canGoThere = !turns.get( i + 1 ).singersCoincide(turn);
-		}
-		if ( i > 0 ) {
-			canGoThere = canGoThere && !turns.get( i - 1 ).singersCoincide(turn); 
-		}
-		return canGoThere;
-	}
-	
-	public void add( Singer singer1, Singer singer2, Song song ) {
-		Turn turn = new Turn( singer1, singer2, song, false );
-		for ( int i = pointer+1; i < turns.size() -1; i ++ ) {
-			if ( turns.get(i).singersCoincide( turns.get( i + 1 )) && 
-				canGoThere( turn, i )) {
-				turns.add( i, turn);
-				return;
-			}
-		}
-		turns.add( turn );
-	}
-	
-	public void removeSinger( Singer singer ) {
-		for ( int i = turns.size() -1; i >= pointer; i -- ) {
-			Turn turno = turns.get( i );
-			if ( turno.singer1().equals( singer ) || turno.singer2().equals( singer )) {
-				turns.remove( i );
-			}
-		}
+	private List<Turn> previousTurns;
+	private List<Turn> queue;
+	private final SingerStorage singerStorage;
 
-		if ( pointer == turns.size() ) {
-			throw new NoUnsingedSongsException();
+	@Autowired
+	public UltrastarQueue( SingerStorage singerStorage) {
+		this.previousTurns = new ArrayList<>();
+		this.queue = new ArrayList<>();
+		this.singerStorage = singerStorage;
+	}
+
+	public void add( Singer singer1, Singer singer2, Song song ) {
+		addSong( new Turn( singer1, singer2, song, false ));
+	}
+
+	public void addSong( Turn turn ) {
+		int position = Collections.binarySearch( queue, turn );
+		if ( position < 0 ) {
+			queue.add(-position - 1, turn);
 		}
+		else {
+			while( position < queue.size() && queue.get(position).calculateScore() == turn.calculateScore()) {
+				position++;
+			}
+			queue.add( position, turn );
+		}
+	}
+
+	public Turn nextTurn() {
+		if (queue.isEmpty()) {
+			throw new NoSongsInQueueException();
+		}
+		Turn turn = queue.remove(0);
+		previousTurns.add(turn.complete());
+		turn.singer1().resetScore();
+		turn.singer2().resetScore();
+		singerStorage.increaseSingersScore();
+		Collections.sort( queue );
+		return turn;
+	}
+
+	public void delayTurn() {
+		Turn delayed = queue.remove( 0 );
+		queue.add( 1, delayed );
+	}
+
+	public void removeSinger( Singer singer ) {
+		if ( queue.isEmpty()) {
+			throw new NoSongsInQueueException();
+		}
+		queue = queue.stream().filter( t -> !t.singer1().equals( singer ) && !t.singer2().equals( singer )).toList();
+	}
+
+	public int size() {
+		return queue.size();
 	}
 	
 	public List<Turn> getTurns() {
-		return turns;
+		return queue;
 	}
 }
