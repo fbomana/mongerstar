@@ -22,7 +22,7 @@ public class H2SongStorage implements SongStorage {
 
     @Override
     public List<Song> findSongsByTitle( String title ) {
-        return jdbcClient.sql("select * from songs where title like ? order by author, title").param("%" + title + "%").query( Song.class ).list();
+        return jdbcClient.sql("select * from songs where lower(title) like ? order by author, title").param("%" + title.toLowerCase() + "%").query( Song.class ).list();
     }
 
     @Override
