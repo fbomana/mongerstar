@@ -1,4 +1,11 @@
 <h2>Songs Library</h2>
+<div class="formulario">
+	<form [formGroup]="searchSongsForm">
+	Title: <input type="text" formControlName="title" value=""/>
+	<input type="button" value="Search" (click)="searchSongs()"/>
+	<input type="button" value="Reset" (click)="reset()"/>
+	</form>
+</div>
 @for (song of songs(); track song.title ) {
 	<div>
 		<b>{{song.author}}</b><br>

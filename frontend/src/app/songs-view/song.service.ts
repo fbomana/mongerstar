@@ -18,4 +18,14 @@ export class SongService {
   		});
     	return ( await data.json() ) ?? [];
 	}
+	
+	async getSongsByTitle( title : String ): Promise<Song[]> {
+		const data = await fetch( 
+		this.url + "/title/" + title,
+		{
+			method : "GET",
+			cache: "no-store"
+		});
+		return ( await data.json() ) ?? [];
+	}
 }
