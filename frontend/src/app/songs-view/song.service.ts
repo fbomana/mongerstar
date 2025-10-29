@@ -7,7 +7,7 @@ import { Song } from './song'
 })
 export class SongService {
 
-  url = "http://localhost:8080/songs/";
+  url = "http://localhost:8080/song";
   
 	async getAllSongs(): Promise<Song[]> {
     	const data = await fetch( 
@@ -17,5 +17,15 @@ export class SongService {
   			cache: "no-store"
   		});
     	return ( await data.json() ) ?? [];
+	}
+	
+	async getSongsByTitle( title : String ): Promise<Song[]> {
+		const data = await fetch( 
+		this.url + "/title/" + title,
+		{
+			method : "GET",
+			cache: "no-store"
+		});
+		return ( await data.json() ) ?? [];
 	}
 }

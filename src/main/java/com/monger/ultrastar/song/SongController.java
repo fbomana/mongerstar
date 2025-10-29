@@ -3,13 +3,12 @@ package com.monger.ultrastar.song;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.websocket.server.PathParam;
-
 @RestController
-@RequestMapping("/songs")
+@RequestMapping("/song")
 public class SongController {
 	
 	private final SongStorage storage;
@@ -19,16 +18,16 @@ public class SongController {
 	}
 
 	@GetMapping("/title/{value}")
-    public List<Song> findSongsByTitle( @PathParam("value") String title) {
+    public List<Song> findSongsByTitle( @PathVariable("value") String title ) {
         return storage.findSongsByTitle( title );
     }
 	
 	@GetMapping("/author/{value}")
-    public List<Song> findSongsByAuthor( @PathParam("value") String title) {
-        return storage.findSongsByAuthor( title );
+    public List<Song> findSongsByAuthor( @PathVariable("value") String author ) {
+        return storage.findSongsByAuthor( author );
     }
 	
-	@GetMapping("/")
+	@GetMapping("")
     public List<Song> findAllSongs() {
         return storage.getAllSongs();
     }

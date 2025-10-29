@@ -14,7 +14,7 @@ export class SingersViewComponent {
   singers = signal<Singer[]>([]);
   newSingerForm = new FormGroup({
     newSinger : new FormControl("")
-  })
+  });
 
   constructor() {
     this.readSingersList();
@@ -33,7 +33,6 @@ export class SingersViewComponent {
   }
 
   async addSinger() {
-    console.log("Add singer clicked " + this.newSingerForm.value.newSinger );
 	if ( this.newSingerForm.value.newSinger ) {
     	await this.singerService.newSinger( this.newSingerForm.value.newSinger.toString() );
 	}
