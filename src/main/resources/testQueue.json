@@ -1,8 +1,8 @@
 {
 	"turns": [
 		{
-			"singer1":{"name":"Primiño"},
-			"singer2":{"name":"Ines"},
+			"singer1":{"name":"Primiño", "score": 2},
+			"singer2":{"name":"Ines", "score": 2},
 			"song": {
 				"title":"Moonlight Shadow",
 				"author":"Mike Oldfield",
@@ -11,8 +11,8 @@
 			"completed":true
 		},
 		{
-			"singer1":{"name":"Berni"},
-			"singer2":{"name":"Ester"},
+			"singer1":{"name":"Berni", "score": 2},
+			"singer2":{"name":"Ester", "score": 2},
 			"song":{
 				"title":"Como una Ola",
 				"author":"Rocio Jurado",
@@ -21,8 +21,8 @@
 			"completed":false
 		},
 		{
-			"singer1":{"name":"Efi"},
-			"singer2":{"name":"Raquel"},
+			"singer1":{"name":"Efi", "score": 2},
+			"singer2":{"name":"Raquel", "score": 2},
 			"song": {
 				"title":"Naturaleza Muerta",
 				"author": "Mecano",
@@ -31,8 +31,8 @@
 			"completed":false			
 		},
 		{
-			"singer1":{"name":"Ester"},
-			"singer2":{"name":"Al"},
+			"singer1":{"name":"Ester", "score": 2},
+			"singer2":{"name":"Al", "score": 2},
 			"song": {
 				"title":"Los coches del pasado",
 				"author":"Ladilla Rusa",

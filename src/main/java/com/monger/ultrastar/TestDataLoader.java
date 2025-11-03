@@ -37,8 +37,8 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
     	try {
     		File file = ResourceUtils.getFile("classpath:testQueue.json");
     		ObjectMapper objectMapper = new ObjectMapper();
-    		UltrastarQueue queue = objectMapper.readValue(file, UltrastarQueue.class);
-    		for ( Turn turn : queue.getTurns() ) {
+    		TestQueue queue = objectMapper.readValue(file, TestQueue.class);
+    		for ( Turn turn : queue.turns() ) {
     			singerStorage.addSinger( turn.singer1());
     			singerStorage.addSinger( turn.singer2());
     			songStorage.addSong( turn.song());

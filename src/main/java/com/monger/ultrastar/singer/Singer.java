@@ -1,5 +1,7 @@
 package com.monger.ultrastar.singer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Singer implements Comparable<Singer> {
 
 	private final String name;
@@ -10,7 +12,7 @@ public class Singer implements Comparable<Singer> {
     }
     
     
-    public Singer( String name, int score ) {
+    public Singer( @JsonProperty("name") String name, @JsonProperty("score") int score ) {
         this.name = name;
         this.score = score;
     }

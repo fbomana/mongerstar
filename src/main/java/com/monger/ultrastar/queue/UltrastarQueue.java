@@ -2,7 +2,6 @@ package com.monger.ultrastar.queue;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,12 @@ public class UltrastarQueue {
 	private final SingerStorage singerStorage;
 
 	@Autowired
-	public UltrastarQueue( SingerStorage singerStorage) {
+	public UltrastarQueue( SingerStorage singerStorage ) {
 		this.previousTurns = new ArrayList<>();
 		this.queue = new ArrayList<>();
 		this.singerStorage = singerStorage;
 	}
-
+	
 	public void add( Singer singer1, Singer singer2, Song song ) {
 		addSong( new Turn( singer1, singer2, song, false ));
 	}
