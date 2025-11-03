@@ -12,15 +12,21 @@ import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 export class SongsViewComponent {
 	songService = inject( SongService )
 	songs = signal<Song[]>([]);
+	authors = signal<String[]>( [] );
+	languages = signal<String[]>( [] );
 	searchSongsForm = new FormGroup({
-		title : new FormControl("")
+		title : new FormControl(""),
+		author : new FormControl(""),
+		language : new FormControl("")
 	});
 	
 	constructor() {
-		this.readSongList( "", "" );
+		this.readSongList( "", "", "" );
+		this.readAuthors();
+		this.readLanguages();
 	}
 	
-	private readSongList( title : String, author: String ) {
+	private readSongList( title : String, author: String, language : String ) {
 	
 		if ( title ) {
 			this.songService.getSongsByTitle( title ).then((songsList: Song[]) => {
@@ -28,7 +34,14 @@ export class SongsViewComponent {
 			 });
 		}
 		else if ( author ) {
-			
+			this.songService.getSongsByAuthor( author ).then((songsList: Song[]) => {
+			    this.songs.set( songsList );
+			 });
+		}
+		else if ( language ) {
+			this.songService.getSongsByLanguage( language ).then((songsList: Song[]) => {
+			    this.songs.set( songsList );
+			 });			
 		}
 		else {
 			this.songService.getAllSongs().then((songsList: Song[]) => {
@@ -37,14 +50,35 @@ export class SongsViewComponent {
 		 }
 	}
 	
+	private readAuthors() {
+		this.songService.getAllAuthors().then(( authorsList : String[]) => {
+			this.authors.set( authorsList );
+		});
+	}
+	
+	private readLanguages() {
+		this.songService.getAllLanguages().then(( languagesList : String[]) => {
+			this.languages.set( languagesList );
+		});
+	}
+	
 	async searchSongs() {
 		if ( this.searchSongsForm.value.title ) {
-			this.readSongList( this.searchSongsForm.value.title.toString(), "" );
+			this.readSongList( this.searchSongsForm.value.title.toString(), "", "" );
+		}
+		else if ( this.searchSongsForm.value.author ) {
+			this.readSongList( "", this.searchSongsForm.value.author.toString(), "" );
+		}
+		else if ( this.searchSongsForm.value.language ) {
+			this.readSongList( "", "", this.searchSongsForm.value.language.toString() );
+		}
+		else {
+			this.readSongList( "", "", "" );
 		}
 	}
 	
 	async reset() {
-		this.searchSongsForm.patchValue( { title : "" }); 
-		this.readSongList("", "" );
+		this.searchSongsForm.patchValue( { title : "", author:"", language:"" }); 
+		this.readSongList( "", "", "" );
 	}
 }

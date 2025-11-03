@@ -27,6 +27,21 @@ public class SongController {
         return storage.findSongsByAuthor( author );
     }
 	
+	@GetMapping("/language/{value}")
+    public List<Song> findSongsByLanguage( @PathVariable("value") String language ) {
+        return storage.findSongsByLanguage( language );
+    }
+	
+	@GetMapping("/author")
+    public List<String> getAllAuthors() {
+        return storage.findAllAuthors();
+    }
+	
+	@GetMapping("/language")
+    public List<String> getAllLanguages() {
+        return storage.findAllLanguages();
+    }
+	
 	@GetMapping("")
     public List<Song> findAllSongs() {
         return storage.getAllSongs();

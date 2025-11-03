@@ -33,7 +33,17 @@ public class TestSongStorage implements SongStorage {
 	@Override
 	public List<Song> findSongsByAuthor(String author) {
 		return songs.stream().filter( song -> song.author().toLowerCase().contains( author.trim().toLowerCase())).toList();
-}
+	}
+	
+	@Override
+	public List<Song> findSongsByLanguage(String language) {
+		return songs.stream().filter( song -> song.language().toLowerCase().contains( language.trim().toLowerCase())).toList();
+	}
+	
+	@Override
+	public List<String> findAllAuthors() {
+		return songs.stream().map( Song::author ).toList();
+	}
 
 	@Override
 	public void addSong(Song song) {
@@ -52,6 +62,11 @@ public class TestSongStorage implements SongStorage {
 		for( Song song : songs ) {
 			addSong( song );
 		}
+	}
+
+	@Override
+	public List<String> findAllLanguages() {
+		return songs.stream().map( Song::language ).toList();
 	}
 
 }

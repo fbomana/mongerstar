@@ -1,9 +1,21 @@
 <h2>Songs Library</h2>
 <div class="formulario">
 	<form [formGroup]="searchSongsForm">
-	Title: <input type="text" formControlName="title" value=""/>
+	Title: <input type="text" formControlName="title" value=""/><br/>
+	Author: <select formControlName="author">
+		<option value="" selected></option>
+	@for ( author of authors(); track author ) {
+		<option value="{{author}}">{{author}}</option>
+	}	
+	</select><br/>
+	Language: <select formControlName="language">
+		<option value="" selected></option>
+	@for ( language of languages(); track language ) {
+		<option value="{{language}}">{{language}}</option>
+	}	
+	</select><br/>
 	<input type="button" value="Search" (click)="searchSongs()"/>
-	<input type="button" value="Reset" (click)="reset()"/>
+	&nbsp;<input type="button" value="Reset" (click)="reset()"/>
 	</form>
 </div>
 @for (song of songs(); track song.title ) {
