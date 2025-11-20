@@ -3,11 +3,13 @@ package com.monger.ultrastar.song;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,15 @@ public class SongDiscoverer {
 	
 	private Song getSongFromFile( Path path ) {
 		logger.info("Reading path: {}", path );
-		try ( FileReader fr = new FileReader( path.toFile()); BufferedReader bf = new BufferedReader( fr )){
+		String encoding = "UTF-8";
+		try {
+			encoding = UniversalDetector.detectCharset(path);
+		}
+		catch( IOException e ) {
+			logger.error("Problem detecting encoding of file {}: ", path, e);
+		}
+		
+		try ( FileReader fr = new FileReader( path.toFile(), Charset.forName( encoding )); BufferedReader bf = new BufferedReader( fr )){
 			String line = null;
 			String title = null;
 			String author = null;
@@ -56,7 +66,9 @@ public class SongDiscoverer {
 					language = parts[1];
 				}
 				if ( language != null && title != null && author != null ) {
-					return new Song( title, author, language );
+					Song song = new Song( title, author, language );
+					logger.info("Song: {}", song );
+					return song;
 				}
 			}
 		}
