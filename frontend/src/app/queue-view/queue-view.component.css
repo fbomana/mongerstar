@@ -1,0 +1,14 @@
+div.current-song {
+	display:block;
+	background-color: burlywood;
+}
+
+span.song-title {
+	font-weight: 600;
+	font-size: large
+}
+
+div.queu {
+	display:block;
+	overflow-y: scroll;
+}

@@ -20,4 +20,9 @@ public class QueueController {
 	public List<Turn> getTurns() {
 		return queue.getTurns();
 	}
+	
+	@GetMapping("/turn")
+	public Turn getTurn() {
+		return queue.getCurrentTurn();
+	}
 }

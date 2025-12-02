@@ -1,1 +1,12 @@
-<p>queue-view works!</p>
+<div class="current-song">
+	<span class="song-title">{{currentTurn().song.title}}</span><br>
+	<span class="singers">{{currentTurn().singer1.name}} - {{currentTurn().singer2.name}}</span>
+</div>
+<div class="queue">
+	@for( turn of turnQueue(); track turn.singer1 ) {
+		<div class="song">
+			<span class="song-title">{{turn.song.title}}</span><br>
+			<span class="singers">{{turn.singer1.name}} - {{turn.singer2.name}}</span>
+		</div>
+	}
+</div>

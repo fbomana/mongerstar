@@ -74,4 +74,14 @@ public class UltrastarQueue {
 	public List<Turn> getTurns() {
 		return queue;
 	}
+	
+	public Turn getCurrentTurn() {
+		if ( !previousTurns.isEmpty() ) {
+			return previousTurns.get( previousTurns.size() -1 );
+		}
+		if ( !queue.isEmpty()) {
+			return queue.get( 0 );
+		}
+		return null;
+	}
 }
