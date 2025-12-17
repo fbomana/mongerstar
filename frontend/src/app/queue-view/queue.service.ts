@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 
 import { Turn } from "./turn"
+import { getEndpointUrl } from '../utils'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueueService {
 
-  url = "http://localhost:8080/queue";
+  queueEndPoint="/queue";
+  currentTurnEndPôint="/queue/turn";
 
   constructor() { }
 
   async getQueue(): Promise<Turn[]> {
-	console.log("Pidiendo la cola");
     const data = await fetch( 
-		this.url,
+		getEndpointUrl( this.queueEndPoint ),
 		{
 			method : "GET",
 			cache: "no-store"
@@ -24,14 +25,13 @@ export class QueueService {
   }
 
   async getCurrentTurn(): Promise<Turn> {
-	console.log("Pidiendo el turno actual");
     const data = await fetch( 
-  	this.url + "/turn",
-  	{
-  		method : "GET",
-  		cache: "no-store"
-  	}
-  );
+  		getEndpointUrl( this.currentTurnEndPôint ),
+  		{
+  			method : "GET",
+  			cache: "no-store"
+  		}
+  	);
     return (await data.json()) ?? [];
   }
 }

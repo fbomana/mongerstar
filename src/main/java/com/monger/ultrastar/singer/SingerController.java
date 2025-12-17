@@ -40,9 +40,12 @@ public class SingerController {
     }
 
     @PostMapping("")
-    public void addSinger(@RequestBody String singer ) {
-        if ( storage.getSinger( singer ) == null ) {
-            storage.addSinger(new Singer(singer, Integer.MAX_VALUE));
+    public void addSinger(@RequestBody Singer singer ) {
+        try {
+        	storage.getSinger( singer.getName() );
+        }
+        catch ( SingerNotFoundException e ) {
+            storage.addSinger(new Singer(singer.getName(), Integer.MAX_VALUE));
         }
     }
     

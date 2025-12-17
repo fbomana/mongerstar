@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 
 import { Song } from './song'
+import { getEndpointUrl } from '../utils'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SongService {
 
-  url = "http://192.168.1.3:8080/song";
+  	allSongsEndPoint = "/song";
+	allSongsAuthorsEndPoint = "/song/author";
+	allSongsLangagesEndPoint = "/song/language";
+	searchSongsByTitleEndPoint = "/song/title/";
+	searchSongsByAuthorEndPoint = "/song/author/";
+	searchSongsByLanguageEndPoint = "/song/language/";
   
 	async getAllSongs(): Promise<Song[]> {
     	const data = await fetch( 
-  		this.url,
+  		getEndpointUrl( this.allSongsEndPoint ),
   		{
   			method : "GET",
   			cache: "no-store"
@@ -21,7 +27,7 @@ export class SongService {
 	
 	async getAllAuthors(): Promise<String[]> {
 		const data = await fetch( 
-		this.url + "/author",
+		getEndpointUrl( this.allSongsAuthorsEndPoint ),
 		{
 			method : "GET",
 			cache: "no-store"
@@ -31,7 +37,7 @@ export class SongService {
 	
 	async getAllLanguages(): Promise<String[]> {
 		const data = await fetch( 
-		this.url + "/language",
+		getEndpointUrl( this.allSongsLangagesEndPoint ),
 		{
 			method : "GET",
 			cache: "no-store"
@@ -41,7 +47,7 @@ export class SongService {
 
 	async getSongsByTitle( title : String ): Promise<Song[]> {
 		const data = await fetch( 
-		this.url + "/title/" + title,
+		getEndpointUrl( this.searchSongsByTitleEndPoint + title ),
 		{
 			method : "GET",
 			cache: "no-store"
@@ -51,7 +57,7 @@ export class SongService {
 	
 	async getSongsByAuthor( author : String ): Promise<Song[]> {
 		const data = await fetch( 
-		this.url + "/author/" + author,
+		getEndpointUrl( this.searchSongsByAuthorEndPoint + author ),
 		{
 			method : "GET",
 			cache: "no-store"
@@ -61,7 +67,7 @@ export class SongService {
 	
 	async getSongsByLanguage( language : String ): Promise<Song[]> {
 		const data = await fetch( 
-		this.url + "/language/" + language,
+		getEndpointUrl( this.searchSongsByLanguageEndPoint + language ),
 		{
 			method : "GET",
 			cache: "no-store"
