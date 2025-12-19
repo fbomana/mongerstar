@@ -30,6 +30,7 @@ public class UltrastarQueue {
 	}
 
 	public void addSong( Turn turn ) {
+		checkNotAlreadyInQueue( turn );
 		int position = Collections.binarySearch( queue, turn );
 		if ( position < 0 ) {
 			queue.add(-position - 1, turn);
@@ -39,6 +40,14 @@ public class UltrastarQueue {
 				position++;
 			}
 			queue.add( position, turn );
+		}
+	}
+	
+	private void checkNotAlreadyInQueue( Turn turn ) {
+		for ( Turn t : queue ) {
+			if ( t.equals( turn )) {
+				throw new RuntimeException("Turn already on queue");
+			}
 		}
 	}
 

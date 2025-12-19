@@ -2,7 +2,10 @@ package com.monger.ultrastar.queue;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +27,10 @@ public class QueueController {
 	@GetMapping("/turn")
 	public Turn getTurn() {
 		return queue.getCurrentTurn();
+	}
+	
+	@PostMapping( value="/turn",consumes =  MediaType.APPLICATION_JSON_VALUE) 
+	public void addTurn(  @RequestBody NewTurnRequest request ) {
+		queue.add(request.singer1(), request.singer2(), request.song() );
 	}
 }

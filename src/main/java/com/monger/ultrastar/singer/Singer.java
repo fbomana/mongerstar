@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Singer implements Comparable<Singer> {
 
-	private final String name;
+	private String name;
 	private int score;
 	
-    public Singer( String name ) {
-        this( name, Integer.MAX_VALUE );
-    }
     
-    
+	public Singer() {
+		
+	}
+
     public Singer( @JsonProperty("name") String name, @JsonProperty("score") int score ) {
         this.name = name;
         this.score = score;

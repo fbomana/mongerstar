@@ -1,0 +1,29 @@
+meta {
+  name: newTurn
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/queue/turn
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+    "singer1": {
+      "name": "Berni",
+      "score": 3
+    },
+    "singer2": {
+      "name": "Efi",
+      "score": 3
+    },
+    "song": {
+      "title": "Nada, nada",
+      "author": "Dragon ball Z",
+      "language": "Galician"
+    }
+  }
+}

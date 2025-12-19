@@ -11,7 +11,7 @@ public class SingerStorageTest {
     @Test
     public void addSingerToAnEmptyStorageCreatesAStorageWithOneSinget() {
         SingerStorage storage = new SingerStorage();
-        Singer singer = new Singer("monger");
+        Singer singer = new Singer("monger", Integer.MAX_VALUE);
         storage.addSinger( singer );
         List<Singer> singers = storage.findAll();
         assertFalse( singers.isEmpty());
@@ -22,7 +22,7 @@ public class SingerStorageTest {
     @Test
     public void addingTheSameSingerTwiceToTheStoraeDontCreateRepeatedSingers() {
         SingerStorage storage = new SingerStorage();
-        Singer singer = new Singer("monger");
+        Singer singer = new Singer("monger", Integer.MAX_VALUE);
         storage.addSinger( singer );
         storage.addSinger( singer );
         List<Singer> singers = storage.findAll();
@@ -56,8 +56,8 @@ public class SingerStorageTest {
     @Test
     public void removeSingerRemoveTheSingerFromStorage() {
         SingerStorage storage = new SingerStorage();
-        Singer singer1 = new Singer("monger1");
-        Singer singer2 = new Singer("monger2");
+        Singer singer1 = new Singer("monger1", Integer.MAX_VALUE);
+        Singer singer2 = new Singer("monger2", Integer.MAX_VALUE);
         storage.addSinger( singer1 );
         storage.addSinger( singer2 );
         storage.removeSinger( "monger1" );
@@ -70,7 +70,7 @@ public class SingerStorageTest {
     @Test
     public void increaseSingersScoreAddsOneToTheScoreOfAllSingersThatAreNotMaxxed() {
         SingerStorage storage = new SingerStorage();
-        Singer singer1 = new Singer("monger1");
+        Singer singer1 = new Singer("monger1", Integer.MAX_VALUE);
         Singer singer2 = new Singer("monger2", 10);
         storage.addSinger( singer1 );
         storage.addSinger( singer2 );
