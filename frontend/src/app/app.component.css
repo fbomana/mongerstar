@@ -14,8 +14,9 @@ h1 {
 }
 
 nav {
-  position: static;
+  position: sticky;
   left: 0;
+  top: 60px;
   width: 100%;
   background-color: white;
   color: black;

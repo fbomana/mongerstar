@@ -11,7 +11,7 @@ import  { Turn } from "./turn"
 export class QueueViewComponent {
 	queueService = inject( QueueService )
 	currentTurn = signal<Turn>({
-		singer1 : {name:""}, singer2 : {name:""}, song : { title : "Get the mongers ready to sing", language : "", author: ""}, completed : false
+		singer1 : {name:"", score : 0}, singer2 : {name:"", score:0}, song : { title : "Get the mongers ready to sing", language : "", author: ""}, completed : false
 	});
 	turnQueue = signal<Turn[]>([]);
 	

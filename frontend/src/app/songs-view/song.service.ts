@@ -25,7 +25,7 @@ export class SongService {
     	return ( await data.json() ) ?? [];
 	}
 	
-	async getAllAuthors(): Promise<String[]> {
+	async getAllAuthors(): Promise<string[]> {
 		const data = await fetch( 
 		getEndpointUrl( this.allSongsAuthorsEndPoint ),
 		{
@@ -35,7 +35,7 @@ export class SongService {
 		return ( await data.json() ) ?? [];
 	}
 	
-	async getAllLanguages(): Promise<String[]> {
+	async getAllLanguages(): Promise<string[]> {
 		const data = await fetch( 
 		getEndpointUrl( this.allSongsLangagesEndPoint ),
 		{
@@ -45,7 +45,7 @@ export class SongService {
 		return ( await data.json() ) ?? [];
 	}
 
-	async getSongsByTitle( title : String ): Promise<Song[]> {
+	async getSongsByTitle( title : string ): Promise<Song[]> {
 		const data = await fetch( 
 		getEndpointUrl( this.searchSongsByTitleEndPoint + title ),
 		{
@@ -55,7 +55,7 @@ export class SongService {
 		return ( await data.json() ) ?? [];
 	}
 	
-	async getSongsByAuthor( author : String ): Promise<Song[]> {
+	async getSongsByAuthor( author : string ): Promise<Song[]> {
 		const data = await fetch( 
 		getEndpointUrl( this.searchSongsByAuthorEndPoint + author ),
 		{
@@ -65,7 +65,7 @@ export class SongService {
 		return ( await data.json() ) ?? [];
 	}
 	
-	async getSongsByLanguage( language : String ): Promise<Song[]> {
+	async getSongsByLanguage( language : string ): Promise<Song[]> {
 		const data = await fetch( 
 		getEndpointUrl( this.searchSongsByLanguageEndPoint + language ),
 		{

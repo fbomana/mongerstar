@@ -5,3 +5,67 @@ div.formulario {
 	color: gray;
 	padding: 0.5rem;	
 }
+
+
+div.song:hover {
+	cursor:pointer;
+}
+
+div.newturn {
+	position: absolute;
+	top:0;
+	left:0;
+	margin:0;
+	width:100%;
+	height:100%;
+	background-color: rgba( 255, 255, 255, 0.7);
+	
+}
+
+div.newturnform {
+	position: absolute;
+	top: 10%;
+	left: 13%;
+	width: 75%;
+	background-color: floralwhite;
+	border-color:lightgray;
+	border-style: solid;
+	border-radius: 1%;
+	padding:5px;
+	z-index:100;
+}
+
+div.invisible {
+	display:none;
+}
+
+div.visible {
+	display:block;
+}
+
+span.close {
+	border:1px solid gray;
+	border-radius:10%;
+	background-color: lightgray;
+	padding:3px;
+	font-weight: bolder;
+	float:right;
+	
+}
+
+span.close:hover {
+	cursor:pointer;
+}
+
+select {
+	min-width: 10em;
+}
+
+span.error {
+	color : red;
+	font-weight: bolder;
+}
+
+
+
+

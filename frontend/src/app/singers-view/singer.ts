@@ -1,3 +1,4 @@
 export interface Singer {
-    name : String
+    name : string,
+	score : number
 }

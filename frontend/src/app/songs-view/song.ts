@@ -1,5 +1,5 @@
 export interface Song {
-    title : String;
-	author : String;
-	language: String;
+    title : string;
+	author : string;
+	language: string;
 }

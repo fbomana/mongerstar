@@ -134,7 +134,7 @@ public class UltrastarQueueTest {
 		queue.add( singer3, singer2, song2 );
 		queue.add( singer1, singer3,  song3 );
 		queue.add( singer3, singer4, song4 );
-		queue.add( singer1, singer2, song );
+		queue.add( singer1, singer2, song2 );
 		queue.removeSinger( singer3 );
 		assertEquals( 2, queue.size());
 	}

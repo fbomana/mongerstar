@@ -15,13 +15,39 @@
 	}	
 	</select><br/>
 	<input type="button" value="Search" (click)="searchSongs()"/>
-	&nbsp;<input type="button" value="Reset" (click)="reset()"/>
+	<input type="button" value="Reset" (click)="reset()"/>
 	</form>
 </div>
+
 @for (song of songs(); track song.title ) {
-	<div>
+	<div (click)="createNewTurn( song )" class="song">
 		<b>{{song.author}}</b><br>
 		{{song.title}}<br>
 		<i>{{song.language}}</i><br>
 	</div>
 }
+
+<div class="{{newTurnClasses()}}">
+	<form [formGroup]="newTurnForm">
+	<div class="newturnform">
+		<span style="float:left"><b>New Turn:</b></span>
+		<span class="close" (click)="closeNewTurn()"><b>X</b></span>
+		<br>
+		Song:<input type="text" formControlName="song"><br>
+		singer1:
+		<select formControlName="singer1">
+			@for (singer of activeSingers(); track singer.name ) {
+				<option value="{{singer.name}}">{{singer.name}}</option>
+			}			
+		</select><br>
+		singer2:
+		<select formControlName="singer2">
+			@for (singer of activeSingers(); track singer.name ) {
+				<option value="{{singer.name}}">{{singer.name}}</option>
+			}				
+		</select><br>
+		<span class="error">{{errorMessage()}}</span><br>
+		<input type="button" value="Add" (click)="submitNewTurn()">	
+	</div>
+	</form>
+</div>
