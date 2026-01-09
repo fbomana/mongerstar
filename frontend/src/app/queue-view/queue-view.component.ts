@@ -29,4 +29,12 @@ export class QueueViewComponent {
 			this.turnQueue.set( queue );
 		});
 	}
+	
+	async nextTurn() {
+		if ( this.turnQueue().length > 0 ) {			
+			await this.queueService.next();
+			this.refreshScreen();
+		}
+
+	}
 }

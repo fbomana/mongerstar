@@ -12,6 +12,7 @@ export class QueueService {
 
   queueEndPoint="/queue";
   currentTurnEndPôint="/queue/turn";
+  nextTurn="/queue/next";
 
   constructor() { }
 
@@ -56,5 +57,14 @@ export class QueueService {
 	  return await data.text();
 	}
 	return "";
+  }
+  
+  async next() {
+	await fetch( 
+		getEndpointUrl( this.nextTurn ),
+		{ method : "POST", 
+		  cache: "no-store"
+		}
+	);
   }
 }

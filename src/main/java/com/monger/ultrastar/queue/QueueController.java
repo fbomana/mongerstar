@@ -33,4 +33,9 @@ public class QueueController {
 	public void addTurn(  @RequestBody NewTurnRequest request ) {
 		queue.add(request.singer1(), request.singer2(), request.song() );
 	}
+	
+	@PostMapping( value="/next")
+	public void nextTurn()  {
+		queue.nextTurn();
+	}
 }
