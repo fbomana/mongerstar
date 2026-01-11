@@ -46,6 +46,11 @@ public class SongDiscoverer {
 			logger.error("Problem detecting encoding of file {}: ", path, e);
 		}
 		
+		if ( encoding == null ) {
+			logger.error("Couldn't detect encoding of file {}: path");
+			return Song.emptySong;
+		}
+		
 		try ( FileReader fr = new FileReader( path.toFile(), Charset.forName( encoding )); BufferedReader bf = new BufferedReader( fr )){
 			String line = null;
 			String title = null;
@@ -57,13 +62,28 @@ public class SongDiscoverer {
 					break;
 				}
 				else if ( parts[0].trim().equalsIgnoreCase( "#TITLE" )) {
-					title = parts[1];
+					if ( parts.length >= 2 ) {
+						title = parts[1];
+					}
+					else {
+						title = "unknown";
+					}
 				}
 				else if ( parts[0].trim().equalsIgnoreCase( "#ARTIST" )) {
-					author = parts[1];
+					if ( parts.length >= 2 ) {
+						author = parts[1];
+					}
+					else {
+						author = "unknown";
+					}
 				}
 				else if ( parts[0].trim().equalsIgnoreCase( "#LANGUAGE" )) {
-					language = parts[1];
+					if ( parts.length >= 2 ) {
+						language = parts[1];
+					}
+					else {
+						language = "unknown";
+					}
 				}
 				if ( language != null && title != null && author != null ) {
 					Song song = new Song( title, author, language );
