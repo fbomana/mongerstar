@@ -3,8 +3,9 @@ td {
     border-color: gray;
     border-style: solid;
     color: gray;
-    padding: 0.5rem;
+    padding: 2px;
 }
+
 
 a {
     text-decoration: none;

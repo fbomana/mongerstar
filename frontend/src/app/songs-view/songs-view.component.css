@@ -3,9 +3,13 @@ div.formulario {
 	border-color: rgb(154, 153, 150);
 	border-style: solid;
 	color: gray;
-	padding: 0.5rem;	
+	padding: 0.5em;
 }
 
+div.songlist {
+    overflow-y:scroll;
+    max-height: 60vh;
+}
 
 div.song:hover {
 	cursor:pointer;
