@@ -2,6 +2,8 @@ package com.monger.ultrastar;
 
 import java.io.File;
 
+import com.monger.ultrastar.song.SongDiscoverConfigurations;
+import jakarta.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -19,19 +21,24 @@ import com.monger.ultrastar.song.SongStorage;
 public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 	private static final Logger logger = LoggerFactory.getLogger( TestDataLoader.class );
 
-	private SingerStorage singerStorage;
-	private UltrastarQueue mongerQueue;
-	private SongStorage songStorage;
+	private final SingerStorage singerStorage;
+	private final UltrastarQueue mongerQueue;
+	private final SongStorage songStorage;
+	private final SongDiscoverConfigurations configuration;
 	
-    public TestDataLoader(SingerStorage singerStorage, UltrastarQueue mongerQueue, SongStorage songStorage) {
+    public TestDataLoader(SingerStorage singerStorage, UltrastarQueue mongerQueue, SongStorage songStorage, SongDiscoverConfigurations configuration ) {
 		this.singerStorage = singerStorage;
 		this.mongerQueue = mongerQueue;
 		this.songStorage = songStorage;
+		this.configuration = configuration;
 	}
 
 	@Override 
-    public void onApplicationEvent( ContextRefreshedEvent event ) {
-    	logger.info("Evento recibido: {}", event );
+    public void onApplicationEvent( @Nonnull ContextRefreshedEvent event ) {
+		if ( !configuration.testMode ) {
+			logger.info("Test data loading disabled.");
+			return;
+		}
     	logger.debug("Reading test data");
     	long nanos = System.nanoTime();
     	try {

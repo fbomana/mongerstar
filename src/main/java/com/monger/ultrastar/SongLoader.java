@@ -1,5 +1,6 @@
 package com.monger.ultrastar;
 
+import jakarta.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -21,8 +22,7 @@ public class SongLoader implements ApplicationListener<ContextRefreshedEvent> {
 	}
 	
     @Override 
-    public void onApplicationEvent( ContextRefreshedEvent event ) {
-    	logger.info("Evento recibido: {}", event );
+    public void onApplicationEvent(@Nonnull ContextRefreshedEvent event ) {
     	long nanos = System.nanoTime();
     	
     	for ( String path : configuration.paths ) {
@@ -30,7 +30,7 @@ public class SongLoader implements ApplicationListener<ContextRefreshedEvent> {
     	}
     	
     	nanos = System.nanoTime() - nanos;
-    	logger.info("All songs loaded in: " + ( nanos / 1000000.0) + " ms");
+    	logger.info("All songs loaded in: {}  ms",  nanos / 1000000.0 );
     }
 }
 

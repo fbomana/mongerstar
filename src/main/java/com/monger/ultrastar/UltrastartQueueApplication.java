@@ -1,5 +1,6 @@
 package com.monger.ultrastar;
 
+import jakarta.annotation.Nonnull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,7 @@ public class UltrastartQueueApplication {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings( CorsRegistry registry ) {
+			public void addCorsMappings(@Nonnull CorsRegistry registry ) {
 				registry.addMapping("/**").allowedMethods("DELETE", "GET", "PUT", "POST", "OPTIONS");
 			}
 		};
