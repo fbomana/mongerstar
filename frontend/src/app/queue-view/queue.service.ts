@@ -13,6 +13,7 @@ export class QueueService {
   queueEndPoint="/queue";
   currentTurnEndPôint="/queue/turn";
   nextTurn="/queue/next";
+  delayTurn="/queue/delay";
 
   constructor() { }
 
@@ -63,6 +64,15 @@ export class QueueService {
 	await fetch( 
 		getEndpointUrl( this.nextTurn ),
 		{ method : "POST", 
+		  cache: "no-store"
+		}
+	);
+  }
+
+  async delay() {
+	await fetch(
+		getEndpointUrl( this.delayTurn ),
+		{ method : "POST",
 		  cache: "no-store"
 		}
 	);

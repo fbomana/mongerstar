@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/queue")
 public class QueueController {
 	
-	private UltrastarQueue queue;
+	private final UltrastarQueue queue;
 	
 	public QueueController( UltrastarQueue queue ) {
 		this.queue = queue;
@@ -37,5 +37,10 @@ public class QueueController {
 	@PostMapping( value="/next")
 	public void nextTurn()  {
 		queue.nextTurn();
+	}
+
+	@PostMapping( value="/delay")
+	public void delayTurn() {
+		queue.delayTurn();
 	}
 }

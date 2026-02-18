@@ -35,6 +35,12 @@ export class QueueViewComponent {
 			await this.queueService.next();
 			this.refreshScreen();
 		}
+	}
 
+	async delayTurn() {
+		if ( this.turnQueue().length > 0 ) {
+			await this.queueService.delay();
+			this.refreshScreen();
+		}
 	}
 }

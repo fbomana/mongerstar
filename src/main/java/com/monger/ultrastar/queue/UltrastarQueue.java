@@ -14,7 +14,7 @@ import com.monger.ultrastar.song.Song;
 @Service
 public class UltrastarQueue {
 
-	private List<Turn> previousTurns;
+	private final List<Turn> previousTurns;
 	private List<Turn> queue;
 	private final SingerStorage singerStorage;
 
@@ -65,8 +65,9 @@ public class UltrastarQueue {
 	}
 
 	public void delayTurn() {
-		Turn delayed = queue.remove( 0 );
-		queue.add( 1, delayed );
+		Turn delayed = previousTurns.remove( previousTurns.size() -1 );
+		nextTurn();
+		queue.add( 0, delayed );
 	}
 
 	public void removeSinger( Singer singer ) {

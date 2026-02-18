@@ -1,6 +1,9 @@
 <span class="important">Current turn:</span>
 <div class="current-song">
-	<input type="button" class="next" value="next turn" (click)="nextTurn()">
+	<span class="right">
+		<input type="button" class="next" value="delay turn" (click)="delayTurn()">
+		<input type="button" class="next" value="next turn" (click)="nextTurn()">
+	</span>
 	<span class="song-title">{{currentTurn().song.title}}</span><br>
 	<span class="singers">{{currentTurn().singer1.name}} - {{currentTurn().singer2.name}}</span>
 </div>
