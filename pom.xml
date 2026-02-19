@@ -105,7 +105,23 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+            </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>${project.name}</imageName>
+                    <fallback>false</fallback>
+                    <verbose>true</verbose>
+                    <quickBuild>true</quickBuild>
+                    <buildArgs>
+                        <arg>-H:+AddAllCharsets</arg>
+                    </buildArgs>
+                    <metadataRepository>
+                        <enabled>true</enabled>
+                    </metadataRepository>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
