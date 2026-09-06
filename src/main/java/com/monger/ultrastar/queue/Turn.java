@@ -3,10 +3,12 @@ package com.monger.ultrastar.queue;
 import com.monger.ultrastar.singer.Singer;
 import com.monger.ultrastar.song.Song;
 
-public record Turn ( Singer singer1, Singer singer2, Song song, boolean completed ) implements Comparable<Turn> {
+import java.time.LocalDateTime;
+
+public record Turn (Singer singer1, Singer singer2, Song song, boolean completed, LocalDateTime timestamp) implements Comparable<Turn> {
 
 	public Turn complete() {
-		return new Turn ( singer1, singer2, song, true );
+		return new Turn ( singer1, singer2, song, true, timestamp );
 	}
 	
 	public boolean singersCoincide( Turn otherTurn ) {
@@ -22,6 +24,10 @@ public record Turn ( Singer singer1, Singer singer2, Song song, boolean complete
 
 	@Override
 	public int compareTo( Turn other ) {
-		return other.calculateScore().compareTo( calculateScore() );
+		int c =  other.calculateScore().compareTo( calculateScore() );
+		if ( c == 0 ) {
+			c = timestamp().compareTo( other.timestamp() );
+		}
+		return c;
 	}
 }

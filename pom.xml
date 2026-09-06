@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.monger</groupId>
 	<artifactId>ultrastar-queue</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>ultrastar-queue</name>
 	<description>Gestión de usuarios para ultrastart</description>
 	<properties>

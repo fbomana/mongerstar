@@ -4,6 +4,7 @@ package com.monger.ultrastar.queue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class UltrastarQueueTest {
 	private SingerStorage singerStorage;
 	
 	@BeforeEach
-	private void populateStorage() {
+	public void populateStorage() {
 		singerStorage = new SingerStorage();
 		singerStorage.addSinger( singer1 );
 		singerStorage.addSinger( singer2 );
@@ -56,8 +57,10 @@ public class UltrastarQueueTest {
 		queue.add( singer3, singer4, song2 );
 		assertEquals( 2, queue.size());
 		Turn turn = queue.nextTurn();
-		Turn expectedTurn = new Turn ( singer3, singer4, song2, false );
-		assertEquals( expectedTurn, turn );
+
+		assertEquals( singer3, turn.singer1() );
+		assertEquals( singer4, turn.singer2() );
+		assertEquals( song2, turn.song());
 	}
 	
 	@Test
@@ -70,17 +73,21 @@ public class UltrastarQueueTest {
 		assertEquals( 4, queue.size());
 		List<Turn> turns = queue.getTurns();
 		Turn turn = turns.get(0);
-		Turn expectedTurn = new Turn ( singer3, singer4, song, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer3, turn.singer1());
+		assertEquals( singer4, turn.singer2() );
+		assertEquals( song, turn.song());
 		turn = turns.get(1);
-		expectedTurn = new Turn ( singer3, singer4, song2, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer3, turn.singer1());
+		assertEquals( singer4, turn.singer2() );
+		assertEquals( song2, turn.song());
 		turn = turns.get(2);
-		expectedTurn = new Turn ( singer3, singer4, song3, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer3, turn.singer1());
+		assertEquals( singer4, turn.singer2() );
+		assertEquals( song3, turn.song());
 		turn = turns.get(3);
-		expectedTurn = new Turn ( singer1, singer2, song, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer1, turn.singer1());
+		assertEquals( singer2, turn.singer2() );
+		assertEquals( song, turn.song());
 	}
 	
 	@Test
@@ -90,11 +97,14 @@ public class UltrastarQueueTest {
 		queue.add( singer3, singer4, song2 );
 		queue.add( singer1, singer2, song );
 		Turn turn = queue.nextTurn();
-		Turn expectedTurn = new Turn ( singer3, singer4, song, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer3, turn.singer1() );
+		assertEquals( singer4, turn.singer2());
+		assertEquals( song, turn.song() );
+
 		turn = queue.nextTurn();
-		expectedTurn = new Turn ( singer1, singer2, song, false );
-		assertEquals( expectedTurn, turn );
+		assertEquals( singer1, turn.singer1() );
+		assertEquals( singer2, turn.singer2());
+		assertEquals( song, turn.song() );
 	}
 
 	
@@ -120,10 +130,14 @@ public class UltrastarQueueTest {
 		queue.add( singer1, singer2, song );
 		queue.add( singer3, singer4, song2 );
 		List<Turn> turns = queue.getTurns();
-		assertEquals( new Turn( singer3, singer4, song2, false ), turns.get(0));
+		assertEquals( singer3, turns.get(0).singer1() );
+		assertEquals( singer4, turns.get(0).singer2() );
+		assertEquals( song2, turns.get(0).song());
 		queue.delayTurn();
 		turns = queue.getTurns();
-		assertEquals( new Turn( singer1, singer2, song, false ), turns.get(0));
+		assertEquals( singer1, turns.get(0).singer1() );
+		assertEquals( singer2, turns.get(0).singer2() );
+		assertEquals( song, turns.get(0).song());
 	}
 
 

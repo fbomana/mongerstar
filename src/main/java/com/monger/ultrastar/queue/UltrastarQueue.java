@@ -1,5 +1,6 @@
 package com.monger.ultrastar.queue;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +27,7 @@ public class UltrastarQueue {
 	}
 	
 	public void add( Singer singer1, Singer singer2, Song song ) {
-		addSong( new Turn( singer1, singer2, song, false ));
+		addSong( new Turn( singer1, singer2, song, false, LocalDateTime.now() ));
 	}
 
 	public void addSong( Turn turn ) {
@@ -65,9 +66,10 @@ public class UltrastarQueue {
 	}
 
 	public void delayTurn() {
-		Turn delayed = previousTurns.remove( previousTurns.size() -1 );
-		nextTurn();
-		queue.add( 0, delayed );
+		if( queue.size() > 1 ) {
+			Turn delayed = queue.remove( 0 );
+			queue.add(1, delayed);
+		}
 	}
 
 	public void removeSinger( Singer singer ) {
