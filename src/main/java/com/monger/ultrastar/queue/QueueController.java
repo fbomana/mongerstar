@@ -2,6 +2,8 @@ package com.monger.ultrastar.queue;
 
 import java.util.List;
 
+import com.monger.ultrastar.singer.Singer;
+import com.monger.ultrastar.singer.SingerStorage;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class QueueController {
 	
 	private final UltrastarQueue queue;
+	private final SingerStorage singerStorage;
 	
-	public QueueController( UltrastarQueue queue ) {
+	public QueueController(UltrastarQueue queue, SingerStorage singerStorage) {
 		this.queue = queue;
+		this.singerStorage = singerStorage;
 	}
 
 	@GetMapping("")
@@ -31,7 +35,10 @@ public class QueueController {
 	
 	@PostMapping( value="/turn",consumes =  MediaType.APPLICATION_JSON_VALUE) 
 	public void addTurn(  @RequestBody NewTurnRequest request ) {
-		queue.add(request.singer1(), request.singer2(), request.song() );
+		Singer singer1 = singerStorage.getSinger( request.singer1() );
+		Singer singer2 = singerStorage.getSinger( request.singer2() );
+
+		queue.add( singer1, singer2, request.song() );
 	}
 	
 	@PostMapping( value="/next")

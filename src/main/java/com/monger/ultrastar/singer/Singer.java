@@ -35,6 +35,10 @@ public class Singer implements Comparable<Singer> {
     	return score;
     }
 
+    public void setScore( int score ) {
+        this.score = score;
+    }
+
 
     @Override
     public int compareTo(Singer o) {
@@ -44,4 +48,8 @@ public class Singer implements Comparable<Singer> {
         return name.toLowerCase().compareTo( o.name.toLowerCase());
     }
 
+    @Override
+    public boolean equals( Object s ) {
+        return s instanceof Singer && name.equals( ((Singer)s).name);
+    }
 }

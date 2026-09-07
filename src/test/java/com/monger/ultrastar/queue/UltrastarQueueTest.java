@@ -1,29 +1,27 @@
 package com.monger.ultrastar.queue;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.monger.ultrastar.singer.Singer;
 import com.monger.ultrastar.singer.SingerStorage;
 import com.monger.ultrastar.song.Song;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class UltrastarQueueTest {
 
-	private Singer singer1 = new Singer("singer1", 1);
-	private Singer singer2 = new Singer("Singer2", 2);
-	private Singer singer3 = new Singer("Singer3", 3);
-	private Singer singer4 = new Singer("Singer4", 4);
-	private Song song = new Song("title", "author", "esp");
-	private Song song2 = new Song("title2", "author2", "esp");
-	private Song song3 = new Song("title3", "author3", "esp");
-	private Song song4 = new Song("title4", "author4", "esp");
+	private final Singer singer1 = new Singer("singer1", 1);
+	private final Singer singer2 = new Singer("Singer2", 2);
+	private final Singer singer3 = new Singer("Singer3", 3);
+	private final Singer singer4 = new Singer("Singer4", 4);
+	private final Song song = new Song("title", "author", "esp");
+	private final Song song2 = new Song("title2", "author2", "esp");
+	private final  Song song3 = new Song("title3", "author3", "esp");
+	private final Song song4 = new Song("title4", "author4", "esp");
 	private SingerStorage singerStorage;
 	
 	@BeforeEach
@@ -125,19 +123,28 @@ public class UltrastarQueueTest {
 	}
 	
 	@Test
-	public void delayTurnChangesPositionOfTheTwoFirstSongsInQueue() {
+	public void delayTurnChangesCurrentTurnForFirstTurnOnTheQueue() {
 		UltrastarQueue queue = new UltrastarQueue( singerStorage );
 		queue.add( singer1, singer2, song );
 		queue.add( singer3, singer4, song2 );
-		List<Turn> turns = queue.getTurns();
-		assertEquals( singer3, turns.get(0).singer1() );
-		assertEquals( singer4, turns.get(0).singer2() );
-		assertEquals( song2, turns.get(0).song());
+		Turn currentTurn = queue.nextTurn();
+		assertEquals( singer3, currentTurn.singer1() );
+		assertEquals( singer4, currentTurn.singer2() );
+		assertEquals( song2, currentTurn.song());
+		Turn firstTurnInQueue = queue.getTurns().get(0);
+		assertEquals( singer1, firstTurnInQueue.singer1() );
+		assertEquals( singer2, firstTurnInQueue.singer2() );
+		assertEquals( song, firstTurnInQueue.song());
 		queue.delayTurn();
-		turns = queue.getTurns();
-		assertEquals( singer1, turns.get(0).singer1() );
-		assertEquals( singer2, turns.get(0).singer2() );
-		assertEquals( song, turns.get(0).song());
+		currentTurn = queue.getCurrentTurn();
+		assertEquals( singer1, currentTurn.singer1() );
+		assertEquals( singer2, currentTurn.singer2() );
+		assertEquals( song, currentTurn.song());
+		firstTurnInQueue = queue.getTurns().get(0);
+		assertEquals( singer3, firstTurnInQueue.singer1() );
+		assertEquals( singer4, firstTurnInQueue.singer2() );
+		assertEquals( song2, firstTurnInQueue.song());
+
 	}
 
 

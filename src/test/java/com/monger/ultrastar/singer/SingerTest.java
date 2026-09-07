@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 public class SingerTest {
 
     @Test
-    public void addASingerByNameOnAnEmptyStorageGivesThemTheMaxScore() {
+    public void addASingerByNameOnAnEmptyStorageGivesThemTheDefaultScore() {
         SingerStorage storage = new SingerStorage();
         storage.addSinger("a");
         Singer singer = storage.getSinger( "a" );
-        assertEquals( Integer.MAX_VALUE -1 , singer.getScore());
+        assertEquals( 0 , singer.getScore());
     }
 
-    @Test public void addSingerByNameOnAListWithUsersGiveThemTheGreatestScoreOfAllUsersMinusOne(){
+    @Test public void addSingerByNameOnAListWithUsersGiveThemTheGreatestScoreOfAllUsers(){
         SingerStorage storage = new SingerStorage();
         storage.addSinger(new Singer( "a", 5 ));
         storage.addSinger(new Singer( "b", 3 ));
         storage.addSinger( "c" );
         Singer singer = storage.getSinger( "c" );
-        assertEquals( 4 , singer.getScore());
+        assertEquals( 5 , singer.getScore());
     }
 }

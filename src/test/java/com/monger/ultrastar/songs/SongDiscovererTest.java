@@ -15,7 +15,8 @@ public class SongDiscovererTest {
 		SongStorage storage = new TestSongStorage();
 		SongDiscoverer discoverer = new SongDiscoverer( storage );
 		final long i = System.currentTimeMillis();
-		discoverer.discoverSongsOnFolder("/home/aitkiar/Documentos/trabajo/ultrastar/canciones/test");
+		discoverer.discoverSongsOnFolder("/home/aitkiar/Documentos/trabajo/mongerstar/canciones");
+		//discoverer.discoverSongsOnFolder("/home/aitkiar/Documentos/trabajo/ultrastar/canciones/test");
 		//discoverer.discoverSongsOnFolder("/home/aitkiar/Documentos/trabajo/ultrastar/canciones/español/Modestia Aparte - Es Por Tu Amor [VIDEO]/");
 		final long t = System.currentTimeMillis() - i;
 		System.out.println( String.format("Leidas %d canciones en %d ms", storage.getAllSongs().size(), t));

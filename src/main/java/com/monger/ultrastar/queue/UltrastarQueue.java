@@ -15,14 +15,17 @@ import com.monger.ultrastar.song.Song;
 @Service
 public class UltrastarQueue {
 
-	private final List<Turn> previousTurns;
+	private final List<Turn> turnHistory;
 	private List<Turn> queue;
+	private Turn currentTurn;
+
 	private final SingerStorage singerStorage;
 
 	@Autowired
 	public UltrastarQueue( SingerStorage singerStorage ) {
-		this.previousTurns = new ArrayList<>();
+		this.turnHistory = new ArrayList<>();
 		this.queue = new ArrayList<>();
+		this.currentTurn = null;
 		this.singerStorage = singerStorage;
 	}
 	
@@ -56,19 +59,27 @@ public class UltrastarQueue {
 		if (queue.isEmpty()) {
 			throw new NoSongsInQueueException();
 		}
-		Turn turn = queue.remove(0);
-		previousTurns.add(turn.complete());
-		turn.singer1().resetScore();
-		turn.singer2().resetScore();
+
+		if ( currentTurn != null ) {
+			turnHistory.add(currentTurn.complete());
+		}
+
+		currentTurn = queue.remove(0 );
 		singerStorage.increaseSingersScore();
+		currentTurn.singer1().resetScore();
+		currentTurn.singer2().resetScore();
 		Collections.sort( queue );
-		return turn;
+		return currentTurn;
 	}
 
 	public void delayTurn() {
-		if( queue.size() > 1 ) {
-			Turn delayed = queue.remove( 0 );
-			queue.add(1, delayed);
+		if ( currentTurn != null && !queue.isEmpty() ) {
+			Turn delayed = currentTurn;
+			delayed.singer1().setScore( queue.get(0).singer1().getScore());
+			delayed.singer2().setScore( queue.get(0).singer2().getScore());
+			currentTurn = null;
+			nextTurn();
+			queue.add(0, delayed);
 		}
 	}
 
@@ -88,12 +99,10 @@ public class UltrastarQueue {
 	}
 	
 	public Turn getCurrentTurn() {
-		if ( !previousTurns.isEmpty() ) {
-			return previousTurns.get( previousTurns.size() -1 );
-		}
-		if ( !queue.isEmpty()) {
-			return queue.get( 0 );
-		}
-		return null;
+		return currentTurn;
+	}
+
+	public List<Turn> getTurnHistory() {
+		return turnHistory;
 	}
 }

@@ -38,7 +38,7 @@ public class SingerStorageTest {
             storage.getSinger( "monger" );
             fail("SingerNotFoundException expected");
         } catch ( SingerNotFoundException e ) {
-            assertEquals( "Cantante monger no enconrado", e.getMessage());
+            assertEquals( "Cantante monger no encontrado", e.getMessage());
         }
     }
     
@@ -49,7 +49,7 @@ public class SingerStorageTest {
             storage.removeSinger( "monger" );
             fail("SingerNotFoundException expected");
         } catch ( SingerNotFoundException e ) {
-            assertEquals( "Cantante monger no enconrado", e.getMessage());
+            assertEquals( "Cantante monger no encontrado", e.getMessage());
         }
     }
     

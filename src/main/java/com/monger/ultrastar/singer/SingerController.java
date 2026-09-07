@@ -45,7 +45,7 @@ public class SingerController {
         	storage.getSinger( singer.getName() );
         }
         catch ( SingerNotFoundException e ) {
-            storage.addSinger(new Singer(singer.getName(), Integer.MAX_VALUE));
+            storage.addSinger( singer.getName() );
         }
     }
     

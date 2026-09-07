@@ -42,8 +42,8 @@ export class QueueService {
   async submitNewTurn( song: Song, singer1 : Singer, singer2: Singer ) {
 	const request = { 
 		"song" : song,
-		"singer1" : singer1,
-		"singer2" : singer2 
+		"singer1" : singer1.name,
+		"singer2" : singer2.name
 	};
 	const data = await fetch( 
 		getEndpointUrl( this.currentTurnEndPôint ),
