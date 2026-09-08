@@ -8,9 +8,9 @@ import { getEndpointUrl } from '../utils'
 })
 export class SingerService {
 
-  allSingersEndPoint = "/singer";
-  deleteSingerEndPoint = "/singer/";
-  newSingerEndPoint = "/singer";
+  allSingersEndPoint = "/api/singer";
+  deleteSingerEndPoint = "/api/singer/";
+  newSingerEndPoint = "/api/singer";
 
   constructor() { }
 

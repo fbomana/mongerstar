@@ -8,12 +8,12 @@ import { getEndpointUrl } from '../utils'
 })
 export class SongService {
 
-  	allSongsEndPoint = "/song";
-	allSongsAuthorsEndPoint = "/song/author";
-	allSongsLangagesEndPoint = "/song/language";
-	searchSongsByTitleEndPoint = "/song/title/";
-	searchSongsByAuthorEndPoint = "/song/author/";
-	searchSongsByLanguageEndPoint = "/song/language/";
+  	allSongsEndPoint = "/api/song";
+	allSongsAuthorsEndPoint = "/api/song/author";
+	allSongsLangagesEndPoint = "/api/song/language";
+	searchSongsByTitleEndPoint = "/api/song/title/";
+	searchSongsByAuthorEndPoint = "/api/song/author/";
+	searchSongsByLanguageEndPoint = "/api/song/language/";
   
 	async getAllSongs(): Promise<Song[]> {
     	const data = await fetch( 

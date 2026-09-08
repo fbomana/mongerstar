@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/singer")
+@RequestMapping("/api/singer")
 public class SingerController {
 
     private final SingerStorage storage;

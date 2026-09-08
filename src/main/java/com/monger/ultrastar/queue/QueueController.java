@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/queue")
+@RequestMapping("/api/queue")
 public class QueueController {
 	
 	private final UltrastarQueue queue;

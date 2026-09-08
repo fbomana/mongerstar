@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/song")
+@RequestMapping("/api/song")
 public class SongController {
 	
 	private final SongStorage storage;

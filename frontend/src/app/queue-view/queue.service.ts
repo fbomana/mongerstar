@@ -10,11 +10,11 @@ import { Singer } from "../singers-view/singer"
 })
 export class QueueService {
 
-  queueEndPoint="/queue";
-  currentTurnEndPôint="/queue/turn";
-  nextTurn="/queue/next";
-  delayTurn="/queue/delay";
-  removeTurn="/queue/remove";
+  queueEndPoint="/api/queue";
+  currentTurnEndPôint="/api/queue/turn";
+  nextTurn="/api/queue/next";
+  delayTurn="/api/queue/delay";
+  removeTurn="/api/queue/remove";
 
   constructor() { }
 
