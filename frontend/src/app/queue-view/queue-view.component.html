@@ -12,7 +12,7 @@
 	<div class="queue">
 		@for( turn of turnQueue(); track turn.singer1 ) {
 			<div class="song">
-				<span class="song-title">{{turn.song.title}}</span> ({{turn.singer1.score + turn.singer2.score}})<br>
+				<span class="song-title">{{turn.song.title}}</span> ({{turn.singer1.score + turn.singer2.score}})<span class="close right" (click)="removeTurn( turn )"><b>X</b></span><br>
 				<span class="singers">{{turn.singer1.name}} ({{turn.singer1.score}}) - {{turn.singer2.name}} ({{turn.singer2.score}})</span><br>
 			</div>
 		}

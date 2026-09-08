@@ -43,4 +43,11 @@ export class QueueViewComponent {
 			this.refreshScreen();
 		}
 	}
+
+    async removeTurn( turn : Turn ) {
+        if ( turn ) {
+            await this.queueService.remove( turn );
+            this.refreshScreen();
+        }
+    }
 }

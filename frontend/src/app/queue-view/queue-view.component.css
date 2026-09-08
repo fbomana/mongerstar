@@ -30,3 +30,17 @@ span.important {
 	font-weight: bolder;
 	color:darkblue;
 }
+
+span.close {
+	border:1px solid gray;
+	border-radius:10%;
+	background-color: lightgray;
+	padding:3px;
+	font-weight: bolder;
+	float:right;
+
+}
+
+span.close:hover {
+	cursor:pointer;
+}

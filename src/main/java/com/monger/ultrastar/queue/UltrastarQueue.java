@@ -105,4 +105,8 @@ public class UltrastarQueue {
 	public List<Turn> getTurnHistory() {
 		return turnHistory;
 	}
+
+	public void removeTurn( Turn turn ) {
+		queue.remove( turn );
+	}
 }

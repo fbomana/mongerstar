@@ -50,4 +50,9 @@ public class QueueController {
 	public void delayTurn() {
 		queue.delayTurn();
 	}
+
+	@PostMapping( value="/remove")
+	public void delayTurn(@RequestBody Turn turn) {
+		queue.removeTurn( turn );
+	}
 }

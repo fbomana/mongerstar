@@ -14,6 +14,7 @@ export class QueueService {
   currentTurnEndPôint="/queue/turn";
   nextTurn="/queue/next";
   delayTurn="/queue/delay";
+  removeTurn="/queue/remove";
 
   constructor() { }
 
@@ -73,6 +74,19 @@ export class QueueService {
 	await fetch(
 		getEndpointUrl( this.delayTurn ),
 		{ method : "POST",
+		  cache: "no-store"
+		}
+	);
+  }
+
+  async remove( turn : Turn ) {
+	await fetch(
+		getEndpointUrl( this.removeTurn ),
+		{ method : "POST",
+		  body: JSON.stringify( turn ),
+	      headers: {
+			"Content-Type": "application/json",
+		  },
 		  cache: "no-store"
 		}
 	);
