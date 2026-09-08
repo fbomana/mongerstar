@@ -37,67 +37,65 @@ public class SongDiscoverer {
 	}
 	
 	private Song getSongFromFile( Path path ) {
-		logger.info("Reading path: {}", path );
-		String encoding = "UTF-8";
-		try {
-			encoding = UniversalDetector.detectCharset(path);
+        logger.info("Reading path: {}", path);
+        String encoding = "UTF-8";
+        try {
+            encoding = UniversalDetector.detectCharset(path);
+        } catch (IOException e) {
+            logger.error("Problem detecting encoding of file {}: ", path, e);
+        }
+
+        if (encoding == null) {
+            logger.error("Couldn't detect encoding of file {}: path");
+            return Song.emptySong;
+        }
+
+        String author = null;
+        String title = null;
+		String language = null;
+        try (FileReader fr = new FileReader(path.toFile(), Charset.forName(encoding)); BufferedReader bf = new BufferedReader(fr)) {
+            String line = null;
+            title = null;
+            author = null;
+            language = null;
+            while ((line = bf.readLine()) != null) {
+                String[] parts = fixLine(line).split(":");
+                if (parts[0].trim().equals("")) {
+                    break;
+                } else if (parts[0].trim().equalsIgnoreCase("#TITLE")) {
+                    if (parts.length >= 2) {
+                        title = parts[1];
+                    } else {
+                        title = "unknown";
+                    }
+                } else if (parts[0].trim().equalsIgnoreCase("#ARTIST")) {
+                    if (parts.length >= 2) {
+                        author = parts[1];
+                    } else {
+                        author = "unknown";
+                    }
+                } else if (parts[0].trim().equalsIgnoreCase("#LANGUAGE")) {
+                    if (parts.length >= 2) {
+                        language = parts[1];
+                    } else {
+                        language = "unknown";
+                    }
+                }
+                if (language != null && title != null && author != null) {
+                    Song song = new Song(title, author, language);
+                    logger.info("Song: {}", song);
+                    return song;
+                }
+            }
+        } catch (IOException e) {
+            logger.error("Error reading path: {}", path, e);
+        }
+		logger.error("Song whitout information: author:{} song:{} language:{}", author, title, language );
+		if ( language == null && title != null && author != null ) {
+			return new Song(title, author, "unknown");
 		}
-		catch( IOException e ) {
-			logger.error("Problem detecting encoding of file {}: ", path, e);
-		}
-		
-		if ( encoding == null ) {
-			logger.error("Couldn't detect encoding of file {}: path");
-			return Song.emptySong;
-		}
-		
-		try ( FileReader fr = new FileReader( path.toFile(), Charset.forName( encoding )); BufferedReader bf = new BufferedReader( fr )){
-			String line = null;
-			String title = null;
-			String author = null;
-			String language = null;
-			while( ( line = bf.readLine()) != null ) {
-				String[] parts = fixLine( line ) .split(":");
-				if ( parts[0].trim().equals("")) {
-					break;
-				}
-				else if ( parts[0].trim().equalsIgnoreCase( "#TITLE" )) {
-					if ( parts.length >= 2 ) {
-						title = parts[1];
-					}
-					else {
-						title = "unknown";
-					}
-				}
-				else if ( parts[0].trim().equalsIgnoreCase( "#ARTIST" )) {
-					if ( parts.length >= 2 ) {
-						author = parts[1];
-					}
-					else {
-						author = "unknown";
-					}
-				}
-				else if ( parts[0].trim().equalsIgnoreCase( "#LANGUAGE" )) {
-					if ( parts.length >= 2 ) {
-						language = parts[1];
-					}
-					else {
-						language = "unknown";
-					}
-				}
-				if ( language != null && title != null && author != null ) {
-					Song song = new Song( title, author, language );
-					logger.info("Song: {}", song );
-					return song;
-				}
-			}
-		}
-		catch ( IOException e ) {
-			logger.error( "Error reading path: {}", path, e );
-		}
-		
-		return Song.emptySong;
-	}
+        return Song.emptySong;
+    }
 	
 	private String fixLine( String line ) {
 		 return line.codePoints()

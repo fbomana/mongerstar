@@ -1,5 +1,6 @@
 package com.monger.ultrastar;
 
+import com.monger.ultrastar.song.SongStorage;
 import jakarta.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +15,14 @@ import com.monger.ultrastar.song.SongDiscoverer;
 public class SongLoader implements ApplicationListener<ContextRefreshedEvent> {
 	private static final Logger logger = LoggerFactory.getLogger( SongLoader.class );
 	private final SongDiscoverer discoverer;
+	private final SongStorage storage;
 	private final SongDiscoverConfigurations configuration;
+
 	
-	public SongLoader( SongDiscoverer discoverer, SongDiscoverConfigurations configuration ) {
+	public SongLoader(SongDiscoverer discoverer, SongDiscoverConfigurations configuration, SongStorage storage ) {
 		this.discoverer = discoverer;
 		this.configuration = configuration;
+		this.storage = storage;
 	}
 	
     @Override 
@@ -30,7 +34,7 @@ public class SongLoader implements ApplicationListener<ContextRefreshedEvent> {
     	}
     	
     	nanos = System.nanoTime() - nanos;
-    	logger.info("All songs loaded in: {}  ms",  nanos / 1000000.0 );
+    	logger.info("{} songs loaded in: {}  ms",  storage.getAllSongs().size(), nanos / 1000000.0 );
     }
 }
 
