@@ -3,17 +3,17 @@
 <div class="formulario">
 	<form [formGroup]="searchSongsForm">
 	Title: <input type="text" formControlName="title" value=""/><br/>
-	Author: <select formControlName="author">
-		<option value="" selected></option>
+	Author: <input list="authors" formControlName="author">
+		<datalist id="authors">
 	@for ( author of authors(); track author ) {
 		<option value="{{author}}">{{author}}</option>
 	}	
-	</select><br/>
+		</datalist><br/>
 	Language: <select formControlName="language">
 		<option value="" selected></option>
 	@for ( language of languages(); track language ) {
 		<option value="{{language}}">{{language}}</option>
-	}	
+	}
 	</select><br/>
 	<input type="button" value="Search" (click)="searchSongs()"/>
 	<input type="button" value="Reset" (click)="reset()"/>
