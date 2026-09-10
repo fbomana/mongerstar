@@ -15,6 +15,7 @@ public class QueueControllerTest {
 
     private SingerStorage storage;
     private UltrastarQueue queue;
+    private QueueUpdatesEventManager events;
     private QueueController controller;
 
 
@@ -22,7 +23,8 @@ public class QueueControllerTest {
     public void setUp() {
         storage = new SingerStorage();
         queue = new UltrastarQueue( storage );
-        controller = new QueueController( queue, storage );
+        events = new QueueUpdatesEventManager();
+        controller = new QueueController( queue, storage, events );
     }
 
     @Test

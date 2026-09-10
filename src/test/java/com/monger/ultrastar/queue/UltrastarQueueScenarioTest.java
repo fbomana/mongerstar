@@ -14,7 +14,8 @@ public class UltrastarQueueScenarioTest {
     public void scenario1() {
         SingerStorage singers = new SingerStorage();
         UltrastarQueue queue = new UltrastarQueue( singers );
-        QueueController controller = new QueueController( queue, singers );
+        QueueUpdatesEventManager events = new QueueUpdatesEventManager();
+        QueueController controller = new QueueController( queue, singers, events  );
         Song song1 = new Song( "song1", "author", "español");
         Song song2 = new Song( "song2", "author", "español");
         Song song3 = new Song( "song3", "author", "español");

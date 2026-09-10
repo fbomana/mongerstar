@@ -1,6 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, HostListener } from '@angular/core';
+import { ActivatedRouteSnapshot,  RouterStateSnapshot } from '@angular/router';
 import { QueueService } from "./queue.service"
 import  { Turn } from "./turn"
+import { getEndpointUrl, CanComponentDeactivate, CanDeactivateType } from '../utils';
 
 @Component({
   selector: 'app-queue-view',
@@ -8,17 +10,38 @@ import  { Turn } from "./turn"
   templateUrl: './queue-view.component.html',
   styleUrl: './queue-view.component.css'
 })
-export class QueueViewComponent {
+export class QueueViewComponent implements CanComponentDeactivate {
+    eventEndPoint="/api/queue/events"
+
 	queueService = inject( QueueService )
 	currentTurn = signal<Turn>({
 		singer1 : {name:"", score : 0}, singer2 : {name:"", score:0}, song : { title : "Get the mongers ready to sing", language : "", author: ""}, completed : false
 	});
 	turnQueue = signal<Turn[]>([]);
+    evtSource : EventSource;
+    id : number;
 	
 	constructor() {
+        this.id = Math.floor(Math.random() * 100000001);
 		this.refreshScreen();
+        this.evtSource = new EventSource( getEndpointUrl( this.eventEndPoint ) + "/" + this.id );
+        this.evtSource.onmessage = (e) => {
+            this.refreshScreen();
+        };
 	}
-	
+
+    public async canDeactivate () {
+        console.log( "Try to close EventSource");
+        console.log( this.id );
+        await this.evtSource.close();
+        console.log( this.id );
+        if ( this.id ) {
+            console.log( 2 );
+            this.queueService.unsubscribe( this.id );
+        }
+        return true;
+    }
+
 	private refreshScreen() {
 		this.queueService.getCurrentTurn().then(( turn : Turn  ) => {
 			console.log("Recived turn: ", turn );

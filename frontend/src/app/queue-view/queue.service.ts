@@ -15,8 +15,10 @@ export class QueueService {
   nextTurn="/api/queue/next";
   delayTurn="/api/queue/delay";
   removeTurn="/api/queue/remove";
+  events="/api/queue/events/unsubscribe";
 
-  constructor() { }
+  constructor() {
+  }
 
   async getQueue(): Promise<Turn[]> {
     const data = await fetch( 
@@ -90,5 +92,16 @@ export class QueueService {
 		  cache: "no-store"
 		}
 	);
+  }
+
+  async unsubscribe( id : number ) {
+      console.log( "unsubscribe called - begin" );
+	await fetch(
+		getEndpointUrl( this.events ) + "/" + id,
+		{ method : "GET",
+		  cache: "no-store"
+		}
+	);
+    console.log( "unsubscribe called - end" );
   }
 }
