@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 import { QueueViewComponent } from './queue-view/queue-view.component';
 import { SongsViewComponent } from './songs-view/songs-view.component';
 import { SingersViewComponent } from './singers-view/singers-view.component';
-import { canDeactivateGuard }  from './utils'
+import { ProposalsViewComponent } from './proposals-view/proposals-view.component';
+import { canDeactivateGuard }  from './utils';
 
 
 
@@ -24,6 +25,11 @@ export const routes: Routes = [
         path : "singers",
         component : SingersViewComponent,
         title : "MongerStar singer management"
+    },
+    {
+        path: "proposals",
+        component : ProposalsViewComponent,
+        title : "MongerStar proposals list"
     },
     
 ];

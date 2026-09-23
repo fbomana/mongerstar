@@ -1,5 +1,7 @@
 package com.monger.ultrastar.queue;
 
+import com.monger.ultrastar.proposals.ProposalService;
+import com.monger.ultrastar.proposals.ProposalStorage;
 import com.monger.ultrastar.singer.SingerNotFoundException;
 import com.monger.ultrastar.singer.SingerStorage;
 import com.monger.ultrastar.song.Song;
@@ -17,6 +19,7 @@ public class QueueControllerTest {
     private UltrastarQueue queue;
     private QueueUpdatesEventManager events;
     private QueueController controller;
+    private ProposalService proposalService;
 
 
     @BeforeEach
@@ -24,7 +27,8 @@ public class QueueControllerTest {
         storage = new SingerStorage();
         queue = new UltrastarQueue( storage );
         events = new QueueUpdatesEventManager();
-        controller = new QueueController( queue, storage, events );
+        proposalService = new ProposalService( new ProposalStorage() );
+        controller = new QueueController( queue, storage, events, proposalService );
     }
 
     @Test

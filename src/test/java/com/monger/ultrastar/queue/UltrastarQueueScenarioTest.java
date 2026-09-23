@@ -1,5 +1,7 @@
 package com.monger.ultrastar.queue;
 
+import com.monger.ultrastar.proposals.ProposalService;
+import com.monger.ultrastar.proposals.ProposalStorage;
 import com.monger.ultrastar.singer.SingerStorage;
 import com.monger.ultrastar.song.Song;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ public class UltrastarQueueScenarioTest {
         SingerStorage singers = new SingerStorage();
         UltrastarQueue queue = new UltrastarQueue( singers );
         QueueUpdatesEventManager events = new QueueUpdatesEventManager();
-        QueueController controller = new QueueController( queue, singers, events  );
+        QueueController controller = new QueueController( queue, singers, events, new ProposalService( new ProposalStorage() ));
         Song song1 = new Song( "song1", "author", "español");
         Song song2 = new Song( "song2", "author", "español");
         Song song3 = new Song( "song3", "author", "español");

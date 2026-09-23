@@ -124,6 +124,7 @@ export class SongsViewComponent {
 	
 	async submitNewTurn() {
 		this.errorMessage.set("");
+		let queue : boolean = true
 		if ( this.selectedSong ) {
 			if ( this.newTurnForm.value.singer1 == this.newTurnForm.value.singer2 ) {
 				this.errorMessage.set("Error: you can't select the same singer twice");
@@ -132,12 +133,19 @@ export class SongsViewComponent {
 			const singers = this.activeSingers();
 			const s1 : Singer | undefined = singers.find( (s) => s.name == this.newTurnForm.value.singer1 );
 			const s2 : Singer | undefined = singers.find( (s) => s.name == this.newTurnForm.value.singer2 );
-			if ( s1 && s2 ) {
+			queue = s2 != undefined
+			if ( s1 ) {
 				await this.queueService.submitNewTurn( this.selectedSong, s1, s2 );
 			}
 		}
 		
 		this.closeNewTurn();
-		this.router.navigate(["/queue"]);
+		if ( queue ) {
+		    this.router.navigate(["/queue"]);
+        }
+        else {
+            this.router.navigate(["/proposals"]);
+        }
+
 	}
 }

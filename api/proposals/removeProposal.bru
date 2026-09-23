@@ -1,0 +1,25 @@
+meta {
+  name: removeProposal
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/proposals
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "song": {
+        "title": "Mamma Mia",
+        "author": "ABBA",
+        "language": "English"
+      },
+      "singer": {
+        "name": "test",
+        "score": 0
+      }
+    }
+}

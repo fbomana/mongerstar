@@ -32,11 +32,8 @@ export class QueueViewComponent implements CanComponentDeactivate {
 
     public async canDeactivate () {
         console.log( "Try to close EventSource");
-        console.log( this.id );
         await this.evtSource.close();
-        console.log( this.id );
         if ( this.id ) {
-            console.log( 2 );
             this.queueService.unsubscribe( this.id );
         }
         return true;

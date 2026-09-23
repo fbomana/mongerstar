@@ -1,0 +1,22 @@
+meta {
+  name: newProposal
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/queue/turn
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+    "singer1": "Berni",
+    "song": {
+      "title": "Nada, nada",
+      "author": "Dragon ball Z",
+      "language": "Galician"
+    }
+  }
+}
